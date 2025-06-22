@@ -1,22 +1,43 @@
 //1
-let sentence = "JavaScript is fun!";
-console.log(sentence.includes("fun")); // true
+let numbers = [2, 3, 4, 5];
+console.log(numbers.map(num => num * num)); // [ 4, 9, 16, 25 ]
 
 //2
-let variable;
-if (!variable) {
-  console.log("Переменная имеет falsy значение");
-}
+let numbers2 = [1, 2, 2, 3, 4, 5, 5, 5, 6];
+let uniqueNumbers = numbers2.filter((value, index, self) => {
+  return self.indexOf(value) === index;
+});
+console.log(uniqueNumbers); // [ 1, 2, 3, 4, 5, 6 ]
 
 //3
-let firstName = "Anna";
-let lastName = "Juel";
-let occupation = "frontend developer";
-console.log(`Hello, my name is ${firstName} ${lastName}. I am a ${occupation}.`); //Hello, my name is Anna Juel. I am a frontend developer.
+let numbers3 = [1, 2, 3];
+console.log(numbers3.reduce((accumulator, currentValue) => accumulator + currentValue, 0)); // 6
 
 //4
-console.log(null === undefined); // false, так как это разные типы
-console.log(null == undefined); // true, так как они оба "пустые", а здесь проверяется только содержимое, без типов данных
+let numbers4 = [1, 2, 3, 4];
+let reversedNumbers = [];
+for (let i = numbers4.length - 1; i >= 0; i--) {
+  reversedNumbers.push(numbers4[i]);
+}
+console.log(reversedNumbers); // [ 4, 3, 2, 1 ]
 
 //5
-console.log(1 + '1'); // "11" - вторая единица является строкой, поэтому другой операнд преобразуется в строку, а строки складываются
+let letString = "Hello";
+const constString = "World";
+
+letString = "Hello, again"; 
+console.log(letString); // Hello, again
+//constString = "Another World" - ошибка, так как const не позволяет изменять значение
+
+let letArray = [1, 2, 3];
+const constArray = [4, 5, 6];
+
+letArray.push(4); 
+console.log(letArray); // [ 1, 2, 3, 4 ]
+
+constArray.push(7); // сработает, так как изменяется содержимое массива, а не сама переменная
+console.log(constArray); // [ 4, 5, 6, 7 ]
+
+letArray = [5, 6, 7]; 
+console.log(letArray); // [ 5, 6, 7 ]
+// constArray = [8, 9, 10] - ошибка, так как const не позволяет изменять значение
