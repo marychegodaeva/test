@@ -1,34 +1,22 @@
-//1 
-for (let num = 1; num <= 10; num++) {
-  console.log(num);
-}
+//1
+let sentence = "JavaScript is fun!";
+console.log(sentence.includes("fun")); // true
 
 //2
-let sum = 0;
-let n = 1;
-
-while (n <= 100) {
-  sum += n;
-  n++;
+let variable;
+if (!variable) {
+  console.log("Переменная имеет falsy значение");
 }
-
-console.log(sum, '\n') // 5050
 
 //3
-function isPrime(num) {
-  if (num <= 1) {
-    return false;
-  }
-  for (let i = 2; i <= Math.sqrt(num); i++) {
-    if (num % i === 0) {
-      return false;
-    }
-  }
-  return true;
-}
+let firstName = "Anna";
+let lastName = "Juel";
+let occupation = "frontend developer";
+console.log(`Hello, my name is ${firstName} ${lastName}. I am a ${occupation}.`); //Hello, my name is Anna Juel. I am a frontend developer.
 
-for (let n = 0; n <= 100; n++) {
-  if (isPrime(n)) {
-    console.log(n);
-  }
-}
+//4
+console.log(null === undefined); // false, так как это разные типы
+console.log(null == undefined); // true, так как они оба "пустые", а здесь проверяется только содержимое, без типов данных
+
+//5
+console.log(1 + '1'); // "11" - вторая единица является строкой, поэтому другой операнд преобразуется в строку, а строки складываются
