@@ -1,48 +1,40 @@
 //1
-function average(...numbers) {
-  if (numbers.length === 0) return 0;
-  const sum = numbers.reduce((acc, num) => acc + num, 0);
-  return sum / numbers.length;
+function isPalindrome(str) {
+  const cleanedStr = str.toLowerCase().replace(/[^a-zA-Z0-9а-яА-Я]/g, '');
+  return cleanedStr === cleanedStr.split('').reverse().join('');
 }
-console.log(average(2, 2, 2, 3, 5, 6, 8, 13, 14, 78)) // 13.3
+
+console.log(isPalindrome("А роза упала на лапу Азора")); // true
+console.log(isPalindrome("Привет")); // false
 
 //2
-function formatUserInfo({ name, age, country }) {
-  return `Имя: ${name}, Возраст: ${age}, Страна: ${country}`;
+function findShortestWord(sentence) {
+  const words = sentence.split(' ');
+  let shortestWord = words[0];
+  for (const word of words) {
+    if (word.length < shortestWord.length) {
+      shortestWord = word;
+    }
+  }
+  return shortestWord;
 }
-console.log(formatUserInfo({ name: 'Иван', age: 14, country: 'Россия' })) // Имя: Иван, Возраст: 14, Страна: Россия
+console.log(findShortestWord("Это самое короткое слово")); // Это
 
 //3
-const user = {
-  name: "Иван",
-  age: 30,
-  address: {
-    city: "Москва",
-    country: "Россия"
-  },
-  hobbies: ["чтение", "спорт", "музыка"]
-};
-const { name, address: { country }, hobbies: [firstHobby] } = user;
-
-console.log(name) // Иван
-console.log(firstHobby) // чтение 
-console.log(country) // Россия
+function createPhoneNumber(digits) {
+  const str = digits.toString();
+  return `8 (${str.substring(0, 3)}) ${str.substring(3, 6)}-${str.substring(6)}`;
+}
+console.log(createPhoneNumber(990755333)); // 8 (990) 755-333
 
 //4
-const originalArray = [2, 3, 4];
-const newArray = [1, ...originalArray, 5, 6];
-console.log(newArray) // [ 1, 2, 3, 4, 5, 6 ]
-
-//5
-function removeParam(paramToRemove, { [paramToRemove]: _, ...rest }) {
-  return rest;
+function findMinAndMax(arr) {
+  let min = arr[0];
+  let max = arr[0];
+  for (const num of arr) {
+    if (num < min) min = num;
+    if (num > max) max = num;
+  }
+  return { min, max };
 }
-
-let man = {
-  name: 'Oleg',
-  age: 23,
-  work: 'developer'
-}
-
-console.log(removeParam( 'age', man )) // { name: 'Oleg', work: 'developer' }
-console.log(removeParam( 'work', man )) // { name: 'Oleg', age: 23 }
+console.log(findMinAndMax([3, 1, 4, 1, 5, 9, 2, 6])); // { min: 1, max: 9 }
