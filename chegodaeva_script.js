@@ -1,35 +1,35 @@
 //1
-const divText = document.getElementById('text');
-divText.textContent = 'Dicta, modi!';
+const button1 = document.getElementById('button1');
+button1.addEventListener('click', () => {
+  button1.textContent = 'Новый текст';
+});
 
 //2
-const pNewStyle = document.querySelector('.new-style');
-pNewStyle.style.color = 'green';
-pNewStyle.style.background = 'pink';
+const rect = document.getElementById('rect');
+rect.addEventListener('mouseover', () => {
+  rect.style.width = '200px';
+  rect.style.backgroundColor = 'blue';
+  rect.style.transition = '0.5s';
+});
 
 //3
-const newP = document.createElement('p');
-newP.textContent = 'dolor sit';
-document.body.appendChild(newP);
+const input = document.getElementById('input');
+input.addEventListener('keyup', (event) => {
+  console.log(`Отпущена клавиша: ${event.key}`);
+});
 
 //4
-const pDeleteItem = document.getElementById('delete-item');
-document.body.removeChild(pDeleteItem);
+const form = document.getElementById('form');
+const successMessage = document.getElementById('successMessage');
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  successMessage.style.display = 'block';
+});
 
 //5
-const aGoogle = document.getElementById('google');
-aGoogle.textContent = 'Yandex';
-aGoogle.setAttribute('href', 'https://ya.ru/');
-console.log(aGoogle.getAttribute('href')); // https://ya.ru/
+const topic = document.getElementById('topic');
+topic.addEventListener('click', () => {
+  document.body.classList.toggle('dark-theme');
+});
 
-//6
-const sectionNew = document.createElement('section');
-sectionNew.textContent = 'I am a section tag!!'
-sectionNew.classList.add('section');
-document.body.appendChild(sectionNew);
-
-//7
-sectionNew.classList.remove('section');
-sectionNew.classList.toggle('section-green');
-sectionNew.style.color = 'green';
-console.log(sectionNew.classList.contains('section-green')); // true

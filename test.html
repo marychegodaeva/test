@@ -6,14 +6,54 @@
   <script src="chegodaeva_script.js" defer></script>
   <style>
     body {
-      font-size: 80px;
+      background-color: white;
+      color: black;
+      transition: background-color 0.3s, color 0.3s;
+      font-size: 40px;
+      padding: 40px;
+    }
+    #rect {
+      width: 100px;
+      height: 100px;
+      background-color: green;
+    }
+    input {
+      padding: 20px;
+      background-color: rgb(228, 210, 213);
+      border-radius: 30px;
+      margin: 20px;
+    }
+    button {
+      cursor: pointer;
+    }
+    #topic {
+      font-size: 50px;
+      position: fixed;
+      top: 10%;
+      right: 10%;
+      background-color: yellow;
+    }
+    .dark-theme {
+      background-color: black;
+      color: white;
     }
   </style>
 </head>
-<body>
-  <div id="text">Lorem ipsum dolor sit amet.</div>
-  <p class="new-style">Lorem, ipsum dolor.</p>
-  <p id="delete-item">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit!</p>
-  <a href="https://www.google.com/" id="google" target="_blank">Google</a>
+<body class="">
+  <button id="button1">Изменить текст</button>
+  <div id="rect"></div>
+  <input type="text" id="input">
+
+  <form id="form">
+    <label for="name">Имя:</label>
+    <input type="text" id="name" name="name" required>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <button type="submit">Отправить</button>
+  </form>
+  <p id="successMessage" style="display: none; color: green;">Форма успешно отправлена!</p>
+
+  <button id="topic">Change theme</button>
+  <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. </div>
 </body>
 </html>
