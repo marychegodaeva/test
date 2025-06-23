@@ -1,28 +1,35 @@
 //1
-const person = {
-  name: 'Maria',
-  age: 22,
-  hobbies: ['Спорт', 'Чтение'],
-}
-console.log(Object.keys(person)) // [ 'name', 'age', 'hobbies' ]
-console.log(Object.entries(person)) // [ [ 'name', 'Maria' ], [ 'age', 22 ], [ 'hobbies', [ 'Спорт', 'Чтение' ] ] ]
-
-console.log(person.name) // Maria
-console.log(person.age) // 22
-console.log(person.hobbies) // [ 'Спорт', 'Чтение' ]
-
-console.log(person['name']) // Maria
-console.log(person['age']) // 22
-console.log(person['hobbies']) // [ 'Спорт', 'Чтение' ]
+const divText = document.getElementById('text');
+divText.textContent = 'Dicta, modi!';
 
 //2
-person.work = 'developer'
-console.log(Object.keys(person)) // [ 'name', 'age', 'hobbies', 'work' ]
-console.log(person.work) // developer
+const pNewStyle = document.querySelector('.new-style');
+pNewStyle.style.color = 'green';
+pNewStyle.style.background = 'pink';
 
-person['age'] = 21
-console.log(person.age) // 21
-console.log(person['age']) // 21
+//3
+const newP = document.createElement('p');
+newP.textContent = 'dolor sit';
+document.body.appendChild(newP);
 
-delete person['hobbies']
-console.log(Object.entries(person)) // [ [ 'name', 'Maria' ], [ 'age', 21 ], [ 'work', 'developer' ] ]
+//4
+const pDeleteItem = document.getElementById('delete-item');
+document.body.removeChild(pDeleteItem);
+
+//5
+const aGoogle = document.getElementById('google');
+aGoogle.textContent = 'Yandex';
+aGoogle.setAttribute('href', 'https://ya.ru/');
+console.log(aGoogle.getAttribute('href')); // https://ya.ru/
+
+//6
+const sectionNew = document.createElement('section');
+sectionNew.textContent = 'I am a section tag!!'
+sectionNew.classList.add('section');
+document.body.appendChild(sectionNew);
+
+//7
+sectionNew.classList.remove('section');
+sectionNew.classList.toggle('section-green');
+sectionNew.style.color = 'green';
+console.log(sectionNew.classList.contains('section-green')); // true
