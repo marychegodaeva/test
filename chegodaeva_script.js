@@ -1,40 +1,105 @@
+// 1 задание
+// Возьмите следующий код и приведите его в соответствие с общепринятым стандартом форматирования,
+// соблюдая отступы, выравнивание и правила расстановки пробелов:
+// function multiply(a,b){
+//   return a*b;
+// }
+// const person ={name:'Alice',age:30};
+// if(person.age>18){console.log('Adult');}
+// else{console.log('Minor');}
+
+// 2 задание
+// Представьте, что вы работаете в команде, и вам нужно сделать код понятным для всех участников.
+// Перепишите следующий код, используя понятные и логичные имена переменных и функций:
+// function x(a, b) {
+//   let c = a * b;
+//   return c;
+// }
+// let d = x(5, 10);
+
+// 3 задание
+// Убедитесь, что в коде используется единый стиль оформления. В следующем коде присутствуют смешанные стили кавычек,
+// разное использование var, let, и const, а также различное форматирование объектов и массивов. Исправьте код:
+// let items = ["apple", 'banana', "orange"];
+// let price = {apple: 1, banana: 2, orange:3 };
+// const total = price['apple'] + price["banana"] + price.orange;
+
+// function calculateTotal(items) {
+//   return items.reduce(function(total, item) {return total + item.price; }, 0); }
+
+// 4 задание
+// Создайте функцию validateForm, которая принимает объект формы с полями name, email и password.
+// Она должна выполнять проверки для каждого поля. Если какое-то поле не заполнено или содержит неверные данные,
+// функция должна сразу возвращать ошибку, используя guard expressions. Если все данные верны,
+// функция должна возвращать сообщение "Форма успешно отправлена".
+
 //1
-function isPalindrome(str) {
-  const cleanedStr = str.toLowerCase().replace(/[^a-zA-Z0-9а-яА-Я]/g, '');
-  return cleanedStr === cleanedStr.split('').reverse().join('');
+function multiply( a , b ) {
+  return (a * b);
 }
 
-console.log(isPalindrome("А роза упала на лапу Азора")); // true
-console.log(isPalindrome("Привет")); // false
+const person = {
+  name: 'Alice',
+  age: 30
+};
+
+if ( person.age > 18 ) { 
+  console.log('Adult');
+}
+else {
+  console.log('Minor');
+}
 
 //2
-function findShortestWord(sentence) {
-  const words = sentence.split(' ');
-  let shortestWord = words[0];
-  for (const word of words) {
-    if (word.length < shortestWord.length) {
-      shortestWord = word;
-    }
-  }
-  return shortestWord;
+function multiplication( num1 , num2 ) {
+  let result = num1 * num2;
+  return result;
 }
-console.log(findShortestWord("Это самое короткое слово")); // Это
+let example = multiplication ( 5, 10 );
 
 //3
-function createPhoneNumber(digits) {
-  const str = digits.toString();
-  return `8 (${str.substring(0, 3)}) ${str.substring(3, 6)}-${str.substring(6)}`;
+let items = ['apple', 'banana', 'orange'];
+let price = {
+  apple: 1, 
+  banana: 2, 
+  orange:3 
+};
+const total = price['apple'] + price['banana'] + price['orange'];
+
+function calculateTotal(items) {
+  return items.reduce( function( total, item ) {
+    return total + item.price; 
+  }, 0); 
 }
-console.log(createPhoneNumber(990755333)); // 8 (990) 755-333
 
 //4
-function findMinAndMax(arr) {
-  let min = arr[0];
-  let max = arr[0];
-  for (const num of arr) {
-    if (num < min) min = num;
-    if (num > max) max = num;
+function validateForm(form) {
+  if (!form.name || typeof form.name !== 'string') {
+    return "Ошибка: поле 'name' не заполнено или содержит неверные данные.";
   }
-  return { min, max };
+
+  if (!form.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+    return "Ошибка: поле 'email' не заполнено или содержит неверные данные.";
+  }
+
+  if (!form.password || form.password.length < 8) {
+    return "Ошибка: поле 'password' должно содержать не менее 8 символов.";
+  }
+
+  return "Форма успешно отправлена";
 }
-console.log(findMinAndMax([3, 1, 4, 1, 5, 9, 2, 6])); // { min: 1, max: 9 }
+
+const form1 = {
+  name: "Ivan",
+  email: "ivan@example.com",
+  password: "password123"
+};
+
+const form2 = {
+  name: "",
+  email: "ivan@example.com",
+  password: "password123"
+};
+
+console.log(validateForm(form1)); // Форма успешно отправлена
+console.log(validateForm(form2)); // Ошибка: поле 'name' не заполнено или содержит неверные данные.
