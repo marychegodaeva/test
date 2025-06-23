@@ -1,43 +1,48 @@
 //1
-let numbers = [2, 3, 4, 5];
-console.log(numbers.map(num => num * num)); // [ 4, 9, 16, 25 ]
+function average(...numbers) {
+  if (numbers.length === 0) return 0;
+  const sum = numbers.reduce((acc, num) => acc + num, 0);
+  return sum / numbers.length;
+}
+console.log(average(2, 2, 2, 3, 5, 6, 8, 13, 14, 78)) // 13.3
 
 //2
-let numbers2 = [1, 2, 2, 3, 4, 5, 5, 5, 6];
-let uniqueNumbers = numbers2.filter((value, index, self) => {
-  return self.indexOf(value) === index;
-});
-console.log(uniqueNumbers); // [ 1, 2, 3, 4, 5, 6 ]
+function formatUserInfo({ name, age, country }) {
+  return `Имя: ${name}, Возраст: ${age}, Страна: ${country}`;
+}
+console.log(formatUserInfo({ name: 'Иван', age: 14, country: 'Россия' })) // Имя: Иван, Возраст: 14, Страна: Россия
 
 //3
-let numbers3 = [1, 2, 3];
-console.log(numbers3.reduce((accumulator, currentValue) => accumulator + currentValue, 0)); // 6
+const user = {
+  name: "Иван",
+  age: 30,
+  address: {
+    city: "Москва",
+    country: "Россия"
+  },
+  hobbies: ["чтение", "спорт", "музыка"]
+};
+const { name, address: { country }, hobbies: [firstHobby] } = user;
+
+console.log(name) // Иван
+console.log(firstHobby) // чтение 
+console.log(country) // Россия
 
 //4
-let numbers4 = [1, 2, 3, 4];
-let reversedNumbers = [];
-for (let i = numbers4.length - 1; i >= 0; i--) {
-  reversedNumbers.push(numbers4[i]);
-}
-console.log(reversedNumbers); // [ 4, 3, 2, 1 ]
+const originalArray = [2, 3, 4];
+const newArray = [1, ...originalArray, 5, 6];
+console.log(newArray) // [ 1, 2, 3, 4, 5, 6 ]
 
 //5
-let letString = "Hello";
-const constString = "World";
+function removeParam(paramToRemove, { [paramToRemove]: _, ...rest }) {
+  return rest;
+}
 
-letString = "Hello, again"; 
-console.log(letString); // Hello, again
-//constString = "Another World" - ошибка, так как const не позволяет изменять значение
+let man = {
+  name: 'Oleg',
+  age: 23,
+  work: 'developer'
+}
 
-let letArray = [1, 2, 3];
-const constArray = [4, 5, 6];
-
-letArray.push(4); 
-console.log(letArray); // [ 1, 2, 3, 4 ]
-
-constArray.push(7); // сработает, так как изменяется содержимое массива, а не сама переменная
-console.log(constArray); // [ 4, 5, 6, 7 ]
-
-letArray = [5, 6, 7]; 
-console.log(letArray); // [ 5, 6, 7 ]
-// constArray = [8, 9, 10] - ошибка, так как const не позволяет изменять значение
+console.log(removeParam( 'age', man )) // { name: 'Oleg', work: 'developer' }
+console.log(removeParam( 'work', man )) // { name: 'Oleg', age: 23 }
