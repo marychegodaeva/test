@@ -1,35 +1,49 @@
 //1
-const button1 = document.getElementById('button1');
-button1.addEventListener('click', () => {
-  button1.textContent = 'Новый текст';
-});
+function even(num) {
+  if (num > 0) {
+    return 'Число положительное';
+  } 
+  else if (num === 0) {
+    return 'Число равно нулю';
+  }
+  else if (num < 0)  {
+    return 'Число отрицательное';
+  }
+}
+
+console.log(even(2)) // Число положительное
+console.log(even(0)) // Число равно нулю
+console.log(even('0')) // Число равно нулю
+console.log(even(-8)) // Число отрицательное
 
 //2
-const rect = document.getElementById('rect');
-rect.addEventListener('mouseover', () => {
-  rect.style.width = '200px';
-  rect.style.backgroundColor = 'blue';
-  rect.style.transition = '0.5s';
-});
+let height = prompt('Введите Ваш рост в см') * 0.01;
+let weight = prompt('Введите Ваш вес в кг');
 
-//3
-const input = document.getElementById('input');
-input.addEventListener('keyup', (event) => {
-  console.log(`Отпущена клавиша: ${event.key}`);
-});
+function calculateIMT(h, w) {
+  let imt = (w / (h * h));
 
-//4
-const form = document.getElementById('form');
-const successMessage = document.getElementById('successMessage');
+  if (imt < 16) {
+    return 'У Вас выраженный дефицит массы тела';
+  }
+  else if (imt >= 16 && imt < 18.5) {
+    return 'У Вас недостаточная (дефицит) масса тела';
+  }
+  else if (imt >= 18.5 && imt < 25) {
+    return 'У Вас нормальная масса тела';
+  }
+  else if (imt >= 25 && imt < 30) {
+    return 'У Вас избыточная масса тела (предожирение)';
+  }
+  else if (imt >= 30 && imt < 35) {
+    return 'У Вас ожирение первой степени';
+  }
+  else if (imt >= 35 && imt < 40) {
+    return 'У Вас ожирение второй степени';
+  }
+  else if (imt >= 40) {
+    return 'У Вас ожирение третьей степени (морбидное)';
+  }
+}
 
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  successMessage.style.display = 'block';
-});
-
-//5
-const topic = document.getElementById('topic');
-topic.addEventListener('click', () => {
-  document.body.classList.toggle('dark-theme');
-});
-
+alert(calculateIMT(height, weight));
