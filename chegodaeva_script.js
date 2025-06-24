@@ -1,49 +1,29 @@
-//1
-function even(num) {
-  if (num > 0) {
-    return 'Число положительное';
-  } 
-  else if (num === 0) {
-    return 'Число равно нулю';
+//3
+function createPhoneNumber(digits) {
+  let str = digits.toString();
+  if (str.length < 9) {    // Дополняем ведущими нулями
+    str = str.padStart(9, '0');
   }
-  else if (num < 0)  {
-    return 'Число отрицательное';
-  }
+  return `8 (${str.substring(0, 3)}) ${str.substring(3, 6)}-${str.substring(6)}`;
 }
 
-console.log(even(2)) // Число положительное
-console.log(even(0)) // Число равно нулю
-console.log(even('0')) // Число равно нулю
-console.log(even(-8)) // Число отрицательное
+console.log(createPhoneNumber(990755333)); // 8 (990) 755-333
+console.log(createPhoneNumber(9907333)); // 8 (009) 907-333
 
-//2
-let height = prompt('Введите Ваш рост в см') * 0.01;
-let weight = prompt('Введите Ваш вес в кг');
-
-function calculateIMT(h, w) {
-  let imt = (w / (h * h));
-
-  if (imt < 16) {
-    return 'У Вас выраженный дефицит массы тела';
+//5
+function bubbleSort(arr) {
+  let len = arr.length;
+  for (let i = 0; i < len - 1; i++) {
+    for (let j = 0; j < len - 1 - i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        let temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
   }
-  else if (imt >= 16 && imt < 18.5) {
-    return 'У Вас недостаточная (дефицит) масса тела';
-  }
-  else if (imt >= 18.5 && imt < 25) {
-    return 'У Вас нормальная масса тела';
-  }
-  else if (imt >= 25 && imt < 30) {
-    return 'У Вас избыточная масса тела (предожирение)';
-  }
-  else if (imt >= 30 && imt < 35) {
-    return 'У Вас ожирение первой степени';
-  }
-  else if (imt >= 35 && imt < 40) {
-    return 'У Вас ожирение второй степени';
-  }
-  else if (imt >= 40) {
-    return 'У Вас ожирение третьей степени (морбидное)';
-  }
+  return arr;
 }
 
-alert(calculateIMT(height, weight));
+const array = [64, 34, 25, 12, 22, 11, 90];
+console.log(bubbleSort(array)); // [11, 12, 22, 25, 34, 64, 90]
