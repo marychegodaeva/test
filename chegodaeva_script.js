@@ -1,49 +1,70 @@
 //1
-const person = {
-  name: "Alice",
-  greet: function () {
-    console.log(`Hello, my name is ${this.name}`);
-  },
-};
-
-const greetFunction = person.greet;
-greetFunction(); // Hello, my name is undefined
+function sumArray(arr, index = 0) {
+  if (index === arr.length) {
+    return 0;
+  }
+  return arr[index] + sumArray(arr, index + 1);
+}
+console.log(sumArray([1, 2, 3, 4, 5])); // 15
 
 //2
-// В первом случае, когда вызывается student.greet(), this ссылается на объект student, 
-// поэтому this.name возвращает 'Alice'.
-// Во втором случае, когда вызывается student.delayedGreet(), this внутри setTimeout теряет контекст и 
-// ссылается на глобальный объект (window), где свойства name не существует, поэтому выводится undefined.
-const student = {
-  name: 'Alice',
-
-  greet: function() {
-    console.log(`Hello, ${this.name}!`);
-  },
-
-  delayedGreet: function() {
-    setTimeout(() => this.greet(), 1000);
+function maxArray(arr, index = 0) {
+  if (index === arr.length - 1) {
+    return arr[index];
   }
-};
-
-student.greet(); // Hello, Alice
-student.delayedGreet(); // Через 1 секунду выведет: Hello, Alice
+  const currentMax = maxArray(arr, index + 1);
+  return arr[index] > currentMax ? arr[index] : currentMax;
+}
+console.log(maxArray([1, 5, 3, 9, 2])); // 9
 
 //3
-function greet(language, punctuation) {
-  console.log(`${language}, ${this.name}${punctuation}`);
+function deepCopy(obj) {
+  if (obj === null || typeof obj !== "object") {
+    return obj;
+  }
+
+  if (Array.isArray(obj)) {
+    const arrCopy = [];
+    for (let i = 0; i < obj.length; i++) {
+      arrCopy[i] = deepCopy(obj[i]);
+    }
+    return arrCopy;
+  }
+
+  const objCopy = {};
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      objCopy[key] = deepCopy(obj[key]);
+    }
+  }
+  return objCopy;
 }
 
-const person1 = { name: "Alice" };
-const person2 = { name: "Bob" };
-
-greet.call(person1, "Hello", "!"); // Hello, Alice!
-greet.apply(person2, ["Hi", "!!"]); // Hi, Bob!!
-const greetAlice = greet.bind(person1, "Hey");
-greetAlice("..."); // Hey, Alice...
+const original = { a: 1, b: { c: 2 } };
+const copied = deepCopy(original);
+copied.b.c = 3;
+console.log(original.b.c); // 2, так как копия не влияет на оригинал
 
 //4
-// В результате выполнения sayHelloToAdmin() в консоли будет выведено 'Hello, Bob', 
-// потому что sayHelloToAdmin привязан к объекту admin с помощью bind.
-// const sayHelloToUser = sayHello.bind(user);
-// sayHelloToUser(); // Hello, John
+function fibonacci() {
+  const cache = {};
+
+  function fib(n) {
+    if (n in cache) {
+      return cache[n];
+    }
+
+    if (n <= 1) {
+      return n;
+    }
+
+    cache[n] = fib(n - 1) + fib(n - 2);
+    return cache[n];
+  }
+
+  return fib;
+}
+
+const fib = fibonacci();
+console.log(fib(6)); // 8 - вычисляется
+console.log(fib(6)); // 8 - берется из кэша
