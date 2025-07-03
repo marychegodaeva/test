@@ -1,70 +1,108 @@
+// 1 задание
+// В следующем коде несколько раз повторяются похожие операции. Проведите рефакторинг, чтобы избежать дублирования,
+// используя функции или другие средства:
+// const product1 = { name: 'Product 1', price: 10 };
+// const product2 = { name: 'Product 2', price: 20 };
+// const total1 = product1.price * 1.2;
+// const total2 = product2.price * 1.2;
+// console.log('Total for Product 1:', total1);
+// console.log('Total for Product 2:', total2);
+
+// 2 задание
+// Код ниже содержит сложные вложенные условия. Упростите его, чтобы улучшить читаемость и уменьшить вероятность ошибок:
+// if (user.isAdmin) {
+//   if (user.isActive) {
+//     if (user.age > 18) {
+//       console.log('Access granted');
+//     }
+//   }
+// }
+
+// 3 задание
+// В следующей функции выполняется слишком много операций. Разделите её на несколько более коротких функций,
+// чтобы улучшить читаемость и повторное использование кода:
+// function checkStock(item) {
+//   return Math.random() < 0.5; // Возвращает рандомно true или false, это просто иммитация функции!
+// }
+// function processOrder(order) {
+//   // Валидация данных заказа
+//   if (!order.id || !order.items || order.items.length === 0) {
+//     console.log('Invalid order');
+//     return;
+//   }
+//   // Рассчет суммы
+//   let total = 0;
+//   for (let item of order.items) {
+//     total += item.price * item.quantity;
+//   }
+//   // Проверка наличия на складе
+//   for (let item of order.items) {
+//     if (!checkStock(item)) {
+//       console.log('Item out of stock:', item.name);
+//       return;
+//     }
+//   }
+//   // Выполнение заказа
+//   console.log('Order processed with total:', total);
+// }
+
 //1
-function sumArray(arr, index = 0) {
-  if (index === arr.length) {
-    return 0;
-  }
-  return arr[index] + sumArray(arr, index + 1);
+const product1 = { name: 'Product 1', price: 10 };
+const product2 = { name: 'Product 2', price: 20 };
+function calculateAndLogTotal(product) {
+  const total = product.price * 1.2;
+  console.log(`Total for ${product.name}:`, total);
 }
-console.log(sumArray([1, 2, 3, 4, 5])); // 15
+calculateAndLogTotal(product1);
+calculateAndLogTotal(product2);
 
 //2
-function maxArray(arr, index = 0) {
-  if (index === arr.length - 1) {
-    return arr[index];  
-  }
-  const currentMax = maxArray(arr, index + 1);
-  return arr[index] > currentMax ? arr[index] : currentMax;
+if (!user.isAdmin) {
+  return;
 }
-console.log(maxArray([1, 5, 3, 9, 2])); // 9
+if (!user.isActive) {
+  return;
+}
+if (user.age <= 18) {
+  return;
+}
+console.log('Access granted');
 
 //3
-function deepCopy(obj) {
-  if (obj === null || typeof obj !== 'object') {
-    return obj;
-  }
-
-  if (Array.isArray(obj)) {
-    const arrCopy = [];
-    for (let i = 0; i < obj.length; i++) {
-      arrCopy[i] = deepCopy(obj[i]);
-    }
-    return arrCopy;
-  }
-
-  const objCopy = {};
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      objCopy[key] = deepCopy(obj[key]);
-    }
-  }
-  return objCopy;
+function checkStock(item) {
+  return Math.random() < 0.5;
 }
 
-const original = { a: 1, b: { c: 2 } };
-const copied = deepCopy(original);
-copied.b.c = 3;
-console.log(original.b.c); // 2, так как копия не влияет на оригинал
-
-//4
-function fibonacci() {
-  const cache = {};
-
-  function fib(n) {
-    if (n in cache) {
-      return cache[n];
-    }
-
-    if (n <= 1) {
-      return n;
-    }
-
-    cache[n] = fib(n - 1) + fib(n - 2);
-    return cache[n];
+function validateOrder(order) {
+  if (!order.id || !order.items || order.items.length === 0) {
+    console.log('Invalid order');
+    return false;
   }
-
-  return fib;
+  return true;
 }
 
-const fib = fibonacci();
-console.log(fib(6)); // 8 - вычисляется
-console.log(fib(6)); // 8 - берется из кэша
+function calculateTotal(order) {
+  return order.items.reduce((total, item) => total + item.price * item.quantity, 0);
+}
+
+function checkOrderStock(order) {
+  for (let item of order.items) {
+    if (!checkStock(item)) {
+      console.log('Item out of stock:', item.name);
+      return false;
+    }
+  }
+  return true;
+}
+
+function processOrder(order) {
+  if (!validateOrder(order)) {
+    return;
+  }
+  const total = calculateTotal(order);
+  if (!checkOrderStock(order)) {
+    return;
+  }
+
+  console.log('Order processed with total:', total);
+}
