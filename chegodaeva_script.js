@@ -1,108 +1,69 @@
-// 1 задание
-// В следующем коде несколько раз повторяются похожие операции. Проведите рефакторинг, чтобы избежать дублирования,
-// используя функции или другие средства:
-// const product1 = { name: 'Product 1', price: 10 };
-// const product2 = { name: 'Product 2', price: 20 };
-// const total1 = product1.price * 1.2;
-// const total2 = product2.price * 1.2;
-// console.log('Total for Product 1:', total1);
-// console.log('Total for Product 2:', total2);
-
-// 2 задание
-// Код ниже содержит сложные вложенные условия. Упростите его, чтобы улучшить читаемость и уменьшить вероятность ошибок:
-// if (user.isAdmin) {
-//   if (user.isActive) {
-//     if (user.age > 18) {
-//       console.log('Access granted');
-//     }
-//   }
-// }
-
-// 3 задание
-// В следующей функции выполняется слишком много операций. Разделите её на несколько более коротких функций,
-// чтобы улучшить читаемость и повторное использование кода:
-// function checkStock(item) {
-//   return Math.random() < 0.5; // Возвращает рандомно true или false, это просто иммитация функции!
-// }
-// function processOrder(order) {
-//   // Валидация данных заказа
-//   if (!order.id || !order.items || order.items.length === 0) {
-//     console.log('Invalid order');
-//     return;
-//   }
-//   // Рассчет суммы
-//   let total = 0;
-//   for (let item of order.items) {
-//     total += item.price * item.quantity;
-//   }
-//   // Проверка наличия на складе
-//   for (let item of order.items) {
-//     if (!checkStock(item)) {
-//       console.log('Item out of stock:', item.name);
-//       return;
-//     }
-//   }
-//   // Выполнение заказа
-//   console.log('Order processed with total:', total);
-// }
-
 //1
-const product1 = { name: 'Product 1', price: 10 };
-const product2 = { name: 'Product 2', price: 20 };
-function calculateAndLogTotal(product) {
-  const total = product.price * 1.2;
-  console.log(`Total for ${product.name}:`, total);
-}
-calculateAndLogTotal(product1);
-calculateAndLogTotal(product2);
+const student = {
+  name: "Иван",
+  age: 20,
+  courses: ["Математика", "История", "Программирование"],
+  address: {
+    city: "Москва",
+    street: "Ленинская",
+    house: 10,
+  },
+};
+
+const shallowCopy1 = { ...student };
+shallowCopy1.courses.push("Физика");
+shallowCopy1.address.city = "Санкт-Петербург";
+console.log(student); // courses: [ 'Математика', 'История', 'Программирование', 'Физика' ], address: { city: 'Санкт-Петербург', street: 'Ленинская', house: 10 }
+
+const shallowCopy2 = Object.assign({}, student);
+shallowCopy2.courses.push("Химия");
+shallowCopy2.address.street = "Невская";
+console.log(student); // courses: [ 'Математика', 'История', 'Программирование', 'Физика', 'Химия' ], address: { city: 'Санкт-Петербург', street: 'Невская', house: 10 }
 
 //2
-if (!user.isAdmin) {
-  return;
-}
-if (!user.isActive) {
-  return;
-}
-if (user.age <= 18) {
-  return;
-}
-console.log('Access granted');
+const user = {
+  name: "Alice",
+  age: 30,
+  address: {
+    city: "Wonderland",
+    zip: "12345",
+  },
+  sayHi: () => console.log("Hello, Alice!"),
+};
+
+const jsonCopyUser = JSON.parse(JSON.stringify(user));
+console.log(jsonCopyUser);
+// {
+// name: 'Alice',
+// age: 30,
+// address: { city: 'Wonderland', zip: '12345' }
+// }
+jsonCopyUser.sayHi?.(); // Ошибка, так как функции не копируются
 
 //3
-function checkStock(item) {
-  return Math.random() < 0.5;
-}
-
-function validateOrder(order) {
-  if (!order.id || !order.items || order.items.length === 0) {
-    console.log('Invalid order');
-    return false;
+function deepCopy(obj) {
+  if (obj === null || typeof obj !== "object") {
+    return obj; // Если объект равен null или не является объектом, возвращаем его как есть
   }
-  return true;
-}
 
-function calculateTotal(order) {
-  return order.items.reduce((total, item) => total + item.price * item.quantity, 0);
-}
+  if (Array.isArray(obj)) { // Если объект является массивом, создаем новый массив
+    const arrCopy = []; // Создаем пустой массив для копии
+    for (let i = 0; i < obj.length; i++) { // Проходим по каждому элементу исходного массива
+      arrCopy[i] = deepCopy(obj[i]); // Рекурсивно копируем каждый элемент и добавляем его в новый массив
+    }
+    return arrCopy; // Возвращаем скопированный массив
+  }
 
-function checkOrderStock(order) {
-  for (let item of order.items) {
-    if (!checkStock(item)) {
-      console.log('Item out of stock:', item.name);
-      return false;
+  const objCopy = {}; // Если объект не является массивом, создаем новый объект
+  for (const key in obj) { // Проходим по каждому свойству исходного объекта
+    if (obj.hasOwnProperty(key)) { // Проверяем, является ли свойство собственным свойством объекта (а не унаследованным)
+      objCopy[key] = deepCopy(obj[key]); // Рекурсивно копируем значение каждого свойства и добавляем его в новый объект
     }
   }
-  return true;
+  return objCopy; // Возвращаем скопированный объект
 }
 
-function processOrder(order) {
-  if (!validateOrder(order)) {
-    return;
-  }
-  const total = calculateTotal(order);
-  if (!checkOrderStock(order)) {
-    return;
-  }
-
-  console.log('Order processed with total:', total);
-}
+const deepCopyUser = deepCopy(user);
+deepCopyUser.address.city = "New Wonderland";
+console.log(user.address.city); // Wonderland
+console.log(deepCopyUser.address.city); // New Wonderland
