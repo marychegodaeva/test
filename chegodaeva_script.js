@@ -1,24 +1,41 @@
 //1
-const products = [
-  { name: 'Product 1', price: 10 },
-  { name: 'Product 2', price: 20 }
-];
-
-const taxCoefficient = 1.2;
-function calculateAndLogTotal(product) {
-  const total = product.price * taxCoefficient;
-  console.log(`Total for ${product.name}:`, total);
+function safeDivide(a, b) {
+  try {
+    if (b === 0) {
+      throw new Error("Деление на ноль невозможно");
+    }
+    return a / b;
+  } catch (error) {
+    console.error(error.message);
+  }
 }
-products.forEach(product => calculateAndLogTotal(product));
-// Total for Product 1: 12
-// Total for Product 2: 24
+safeDivide(10, 2); // 5
+safeDivide(10, 0); // Деление на ноль невозможно
 
 //2
-function hasAccess(user) {
-  return user.isAdmin && user.isActive && user.age > 18;
+function transformJSON(jsonString) {
+  try {
+    const obj = JSON.parse(jsonString);
+    return obj;
+  } catch (error) {
+    console.error("Ошибка при парсинге JSON:", error.message);
+  }
 }
 
-if (hasAccess(user)) {
-  console.log('Access granted');
+transformJSON('{"name": "Alice", "age": 25}'); // {name: "Alice", age: 25}
+transformJSON('{invalid json}'); // Ошибка при парсинге JSON: Unexpected token i in JSON at position 1
+
+//3
+function checkAccess(age) {
+  try {
+    if (age < 18) {
+      throw new Error("Доступ запрещен");
+    }
+    console.log("Доступ разрешен");
+  } catch (error) {
+    console.error(error.message);
+  }
 }
 
+checkAccess(20); // Доступ разрешен
+checkAccess(16); // Доступ запрещен
